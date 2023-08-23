@@ -15,14 +15,12 @@ public class CourseDto {
     @NotEmpty(message = "Name may not be empty")
     @NotBlank(message = "The name type Number field is required")
     private String name;
-    @NotNull(message = "Duration hours type number cannot be null")
-    @NotBlank(message = "The document duration Hours Number field is required")
+
     private int durationHours;
     @NotNull(message = "Description content type number cannot be null")
     @NotBlank(message = "The description Content type Number field is required")
     private String descriptionContent;
-    @NotNull(message = "Note approval type number cannot be null")
-    @NotBlank(message = "The note approval type Number field is required")
+
     private int noteApproval;
 
     private String teacherId;

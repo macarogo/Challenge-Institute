@@ -32,13 +32,13 @@ public class Course {
 
     @NotNull @NotEmpty @NotBlank
     private String name;
-    @NotNull @NotBlank
+
     @Column(name = "duration_Hours")
     private int durationHours;
     @NotNull @NotBlank
     @Column(name = "description_Content")
     private String descriptionContent;
-    @NotNull @NotBlank
+
     @Column(name = "note_Approval")
     private int noteApproval;
     private boolean softDelete = Boolean.FALSE;
