@@ -21,7 +21,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE course SET soft_delete = true WHERE id=?")
+@SQLDelete(sql = "UPDATE courses SET soft_delete = true WHERE id=?")
 @Where(clause = "soft_delete=false")
 
 public class Course {
@@ -41,7 +41,6 @@ public class Course {
     @NotNull @NotBlank
     @Column(name = "note_Approval")
     private int noteApproval;
-    @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

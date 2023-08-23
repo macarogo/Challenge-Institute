@@ -1,6 +1,5 @@
 package com.institute.managementsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE teacher SET soft_delete = true WHERE id=?")
+@SQLDelete(sql = "UPDATE teachers SET soft_delete = true WHERE id=?")
 @Where(clause = "soft_delete=false")
 
 public class Teacher {
@@ -50,7 +49,6 @@ public class Teacher {
     private Sex sex;
     @NotNull @NotBlank
     private String phone;
-    @Column(name = "soft_delete")
     private boolean softDelete = Boolean.FALSE;
 
     @OneToMany(mappedBy = "teacher")
