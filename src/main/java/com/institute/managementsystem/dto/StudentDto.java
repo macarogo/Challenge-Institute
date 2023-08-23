@@ -33,8 +33,6 @@ public class StudentDto {
     @NotNull(message = "Current address cannot be null")
     @NotBlank(message = "The current address Number field is required")
     private String currentAddress;
-    @NotNull(message = "Sex address cannot be null")
-    @NotBlank(message = "The sex address Number field is required")
     private Sex sex;
     @NotNull(message = "Phone address cannot be null")
     @NotBlank(message = "The phone address Number field is required")
