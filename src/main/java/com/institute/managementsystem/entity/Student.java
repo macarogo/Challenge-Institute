@@ -12,7 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +50,10 @@ public class Student {
     private String phone;
     private boolean softDelete = Boolean.FALSE;
 
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
-    private List<Course> enrolledCourse = new ArrayList<>();
+    @ManyToMany( fetch = FetchType.EAGER, cascade= CascadeType.MERGE)
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
+    private List<Course> enrolledCourse;
 }

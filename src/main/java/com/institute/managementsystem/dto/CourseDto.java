@@ -10,18 +10,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class CourseDto {
-
     @NotNull(message = "Name type number cannot be null")
     @NotEmpty(message = "Name may not be empty")
     @NotBlank(message = "The name type Number field is required")
     private String name;
-
     private int durationHours;
     @NotNull(message = "Description content type number cannot be null")
     @NotBlank(message = "The description Content type Number field is required")
     private String descriptionContent;
-
     private int noteApproval;
-
-    private String teacherId;
 }

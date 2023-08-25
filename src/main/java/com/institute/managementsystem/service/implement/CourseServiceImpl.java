@@ -8,6 +8,9 @@ import com.institute.managementsystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -15,6 +18,7 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private CourseMapper courseMapper;
+
     @Override
     public CourseDto save(CourseDto courseDto) {
         Course course= courseMapper.courseDto2Entity(courseDto);
@@ -30,7 +34,6 @@ public class CourseServiceImpl implements CourseService {
         course.setDurationHours(courseDto.getDurationHours());
         course.setDescriptionContent(courseDto.getDescriptionContent());
         course.setNoteApproval(courseDto.getNoteApproval());
-        course.setTeacherId(courseDto.getTeacherId());
         Course saveCourse= courseRepository.save(course);
         return courseMapper.courseEntity2Dto(saveCourse);
     }

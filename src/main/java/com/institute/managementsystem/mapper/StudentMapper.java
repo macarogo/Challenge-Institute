@@ -4,6 +4,9 @@ import com.institute.managementsystem.dto.StudentDto;
 import com.institute.managementsystem.entity.Student;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class StudentMapper {
 
@@ -31,5 +34,13 @@ public class StudentMapper {
         entity.setSex(studentDto.getSex());
         entity.setPhone(studentDto.getPhone());
         return entity;
+    }
+
+    public List<StudentDto> studentEntityList2DtoList(List<Student> students){
+        List<StudentDto> dtoList= new ArrayList<>();
+        for (Student student : students){
+            dtoList.add(this.studentEntity2Dto(student));
+        }
+        return dtoList;
     }
 }

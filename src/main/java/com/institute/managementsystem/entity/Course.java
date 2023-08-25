@@ -12,8 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "courses")
@@ -32,32 +31,19 @@ public class Course {
 
     @NotNull @NotEmpty @NotBlank
     private String name;
-
     @Column(name = "duration_Hours")
     private int durationHours;
     @NotNull @NotBlank
     @Column(name = "description_Content")
     private String descriptionContent;
-
     @Column(name = "note_Approval")
     private int noteApproval;
     private boolean softDelete = Boolean.FALSE;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "teacher_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_id", updatable = false)
     private Teacher teacher;
 
-    @Column(name = "teacher_id", nullable = false)
-    private String teacherId;
-
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students= new HashSet<>();
+    @ManyToMany(mappedBy = "enrolledCourse")
+    private List<Student> students;
 }
