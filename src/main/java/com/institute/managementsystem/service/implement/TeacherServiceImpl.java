@@ -8,6 +8,8 @@ import com.institute.managementsystem.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
@@ -46,5 +48,11 @@ public class TeacherServiceImpl implements TeacherService {
             throw new RuntimeException();
         }
         teacherRepository.deleteById(id);
+    }
+
+    @Override
+    public List<TeacherDto> getAll() {
+        List<Teacher> teacherList= teacherRepository.findAll();
+        return teacherMapper.teacherEntityList2DtoList(teacherList);
     }
 }

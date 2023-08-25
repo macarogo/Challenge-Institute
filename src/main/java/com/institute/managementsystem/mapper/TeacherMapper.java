@@ -1,8 +1,13 @@
 package com.institute.managementsystem.mapper;
 
+import com.institute.managementsystem.dto.StudentDto;
 import com.institute.managementsystem.dto.TeacherDto;
+import com.institute.managementsystem.entity.Student;
 import com.institute.managementsystem.entity.Teacher;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class TeacherMapper {
@@ -31,5 +36,13 @@ public class TeacherMapper {
         entity.setSex(teacherDto.getSex());
         entity.setPhone(teacherDto.getPhone());
         return entity;
+    }
+
+    public List<TeacherDto> teacherEntityList2DtoList(List<Teacher> teachers){
+        List<TeacherDto> dtoList= new ArrayList<>();
+        for (Teacher teacher : teachers){
+            dtoList.add(this.teacherEntity2Dto(teacher));
+        }
+        return dtoList;
     }
 }

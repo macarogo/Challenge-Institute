@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/teacher")
@@ -34,5 +35,10 @@ public class TeacherController {
     public ResponseEntity<Teacher> deleteTeacher(@PathVariable String id){
         teacherService.delete(id);
         return new ResponseEntity<Teacher>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<TeacherDto>> getAllTeacher(){
+        return ResponseEntity.status(HttpStatus.OK).body(teacherService.getAll());
     }
 }

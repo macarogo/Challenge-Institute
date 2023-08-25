@@ -8,7 +8,6 @@ import com.institute.managementsystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,5 +44,11 @@ public class CourseServiceImpl implements CourseService {
             throw new RuntimeException();
         }
         courseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CourseDto> getAll() {
+        List<Course> courseList= courseRepository.findAll();
+        return courseMapper.courseEntityList2DtoList(courseList);
     }
 }
