@@ -2,7 +2,6 @@ package com.institute.managementsystem.controller;
 
 import com.institute.managementsystem.dto.CourseDto;
 import com.institute.managementsystem.entity.Course;
-import com.institute.managementsystem.entity.Student;
 import com.institute.managementsystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,10 +40,5 @@ public class CourseController {
     @GetMapping("/getAll")
     public ResponseEntity<List<CourseDto>> getAllCourse(){
         return ResponseEntity.status(HttpStatus.OK).body(courseService.getAll());
-    }
-
-    @GetMapping("/{courseId}/student")
-    public ResponseEntity<List<Student>> getStudentEnrollCourse(@PathVariable Long courseId){
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(courseService.getStudentCourse(courseId));
     }
 }
