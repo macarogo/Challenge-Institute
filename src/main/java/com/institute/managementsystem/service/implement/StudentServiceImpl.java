@@ -3,6 +3,7 @@ package com.institute.managementsystem.service.implement;
 import com.institute.managementsystem.dto.StudentDto;
 import com.institute.managementsystem.entity.Student;
 import com.institute.managementsystem.mapper.StudentMapper;
+import com.institute.managementsystem.repository.CourseRepository;
 import com.institute.managementsystem.repository.StudentRepository;
 import com.institute.managementsystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Override
     public StudentDto save(StudentDto studentDto) {
@@ -26,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDto update(StudentDto studentDto, String id) {
+    public StudentDto update(StudentDto studentDto, Long id) {
         Student student= studentRepository.findById(id).orElse(null);
         assert student != null;
         student.setDocumentType(studentDto.getDocumentType());
@@ -42,7 +45,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         Student student= studentRepository.findById(id).orElse(null);
         if(student == null){
             throw new RuntimeException();

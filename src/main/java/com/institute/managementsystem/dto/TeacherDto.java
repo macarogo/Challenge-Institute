@@ -3,6 +3,7 @@ package com.institute.managementsystem.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.institute.managementsystem.entity.Sex;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class TeacherDto {
 
     @NotNull(message = "Document type number cannot be null")

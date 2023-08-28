@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface StudentService {
     StudentDto save(StudentDto studentDto);
-    StudentDto update(StudentDto studentDto, String id);
-    void delete(String id);
+    StudentDto update(StudentDto studentDto, Long id);
+    void delete(Long id);
     List<StudentDto> getAll();
 }

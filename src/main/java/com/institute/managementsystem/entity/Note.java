@@ -11,40 +11,31 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
 
 @Entity
-@Table(name = "courses")
+@Table(name = "notes")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE courses SET soft_delete = true WHERE id=?")
+@SQLDelete(sql = "UPDATE notes SET soft_delete = true WHERE id=?")
 @Where(clause = "soft_delete=false")
+public class Note {
 
-public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull @NotEmpty @NotBlank
-    private String nameCourse;
-    @Column(name = "duration_Hours")
-    private int durationHours;
-    @NotNull @NotBlank
-    @Column(name = "description_Content")
-    private String descriptionContent;
-    @Column(name = "note_Approval")
-    private int noteApproval;
+    private int note;
     private boolean softDelete = Boolean.FALSE;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-    @ManyToMany(mappedBy = "enrolledCourse")
-    private List<Student> students;
-
-    @OneToMany(mappedBy = "course")
-    private List<Note> notes;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id")
+    private Course course;
 }

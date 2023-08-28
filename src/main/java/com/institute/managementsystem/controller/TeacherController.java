@@ -1,7 +1,9 @@
 package com.institute.managementsystem.controller;
 
 import com.institute.managementsystem.dto.TeacherDto;
+import com.institute.managementsystem.dto.TeacherDtoPublic;
 import com.institute.managementsystem.entity.Teacher;
+import com.institute.managementsystem.repository.TeacherRepository;
 import com.institute.managementsystem.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @PostMapping("/save")
     public ResponseEntity<TeacherDto> saveTeacher(@Valid @RequestBody TeacherDto teacherDto){
@@ -24,7 +28,7 @@ public class TeacherController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<TeacherDto> updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable String id){
+    public ResponseEntity<TeacherDto> updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable Long id){
         if(teacherDto == null){
             throw new RuntimeException();
         }
@@ -32,7 +36,7 @@ public class TeacherController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Teacher> deleteTeacher(@PathVariable String id){
+    public ResponseEntity<Teacher> deleteTeacher(@PathVariable Long id){
         teacherService.delete(id);
         return new ResponseEntity<Teacher>(HttpStatus.ACCEPTED);
     }
@@ -40,5 +44,23 @@ public class TeacherController {
     @GetMapping("/getAll")
     public ResponseEntity<List<TeacherDto>> getAllTeacher(){
         return ResponseEntity.status(HttpStatus.OK).body(teacherService.getAll());
+    }
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<TeacherDto> getById(@PathVariable Long id){
+        TeacherDto teacherId= teacherService.getById(id);
+        if (teacherId == null){
+            throw new RuntimeException();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(teacherId);
+    }
+
+    @GetMapping("/coursesTeacher/{id}")
+    public ResponseEntity<Object> getCoursesByTeacher(@PathVariable Long id){
+        TeacherDtoPublic teacherCourses = teacherService.getCourseByTeacher(id);
+        if (teacherCourses == null){
+            throw new RuntimeException();
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(teacherCourses);
     }
 }

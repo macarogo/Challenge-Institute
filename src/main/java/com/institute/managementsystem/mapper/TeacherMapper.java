@@ -1,13 +1,12 @@
 package com.institute.managementsystem.mapper;
 
-import com.institute.managementsystem.dto.StudentDto;
-import com.institute.managementsystem.dto.TeacherDto;
-import com.institute.managementsystem.entity.Student;
+import com.institute.managementsystem.dto.*;
 import com.institute.managementsystem.entity.Teacher;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class TeacherMapper {
@@ -44,5 +43,19 @@ public class TeacherMapper {
             dtoList.add(this.teacherEntity2Dto(teacher));
         }
         return dtoList;
+    }
+
+    public TeacherDtoPublic teacherEntity2DtoPublic(Teacher teacher){
+        TeacherDtoPublic dtoPublic= new TeacherDtoPublic();
+        dtoPublic.setDocumentType(teacher.getDocumentType());
+        dtoPublic.setDocumentNumber(teacher.getDocumentNumber());
+        dtoPublic.setFirstName(teacher.getFirstName());
+        dtoPublic.setLastName(teacher.getLastName());
+        dtoPublic.setBirthdate(teacher.getBirthdate());
+        dtoPublic.setCurrentAddress(teacher.getCurrentAddress());
+        dtoPublic.setSex(teacher.getSex());
+        dtoPublic.setPhone(teacher.getPhone());
+        dtoPublic.setDictatedCourses(teacher.getDictatedCourses().stream().map(dictatedCourses -> new CourseDto(dictatedCourses)).collect(Collectors.toList()));
+        return dtoPublic;
     }
 }

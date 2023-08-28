@@ -23,7 +23,7 @@ public class StudentController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<StudentDto> updateStudent(@RequestBody StudentDto studentDto, @PathVariable String id){
+    public ResponseEntity<StudentDto> updateStudent(@RequestBody StudentDto studentDto, @PathVariable Long id){
         if(studentDto == null){
             throw new RuntimeException();
         }
@@ -31,7 +31,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Student> deleteStudent(@PathVariable String id){
+    public ResponseEntity<Student> deleteStudent(@PathVariable Long id){
         studentService.delete(id);
         return new ResponseEntity<Student>(HttpStatus.ACCEPTED);
     }

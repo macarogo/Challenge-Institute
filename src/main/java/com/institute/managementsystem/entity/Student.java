@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -26,9 +25,8 @@ import java.util.List;
 
 public class Student {
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull @NotBlank
     @Column(name = "document_Type")
@@ -50,10 +48,13 @@ public class Student {
     private String phone;
     private boolean softDelete = Boolean.FALSE;
 
-    @ManyToMany( fetch = FetchType.EAGER, cascade= CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(
             name = "student_course",
             joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
     private List<Course> enrolledCourse;
+
+    @OneToMany(mappedBy = "student")
+    private List<Note> notes;
 }

@@ -12,7 +12,7 @@ public class CourseMapper {
 
     public CourseDto courseEntity2Dto(Course course){
         CourseDto dto= new CourseDto();
-        dto.setName(course.getName());
+        dto.setNameCourse(course.getNameCourse());
         dto.setDurationHours(course.getDurationHours());
         dto.setDescriptionContent(course.getDescriptionContent());
         dto.setNoteApproval(course.getNoteApproval());
@@ -21,7 +21,7 @@ public class CourseMapper {
 
     public Course courseDto2Entity(CourseDto courseDto){
         Course entity= new Course();
-        entity.setName(courseDto.getName());
+        entity.setNameCourse(courseDto.getNameCourse());
         entity.setDurationHours(courseDto.getDurationHours());
         entity.setDescriptionContent(courseDto.getDescriptionContent());
         entity.setNoteApproval(courseDto.getNoteApproval());
