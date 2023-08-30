@@ -1,5 +1,6 @@
 package com.institute.managementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+
 
 @Entity
 @Table(name = "courses")
@@ -42,6 +44,7 @@ public class Course {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "enrolledCourse")
     private List<Student> students;
 

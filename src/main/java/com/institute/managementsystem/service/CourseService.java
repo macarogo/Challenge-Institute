@@ -11,4 +11,6 @@ public interface CourseService {
     CourseDto update(CourseDto courseDto, Long id);
     void delete(Long id);
     List<CourseDto> getAll();
+    List<Student> getStudentCourse(Long courseId);
+    void addStudentACourse(Long courseId, Long studentId);
 }

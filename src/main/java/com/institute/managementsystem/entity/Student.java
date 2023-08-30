@@ -1,5 +1,6 @@
 package com.institute.managementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,7 @@ public class Student {
     private String phone;
     private boolean softDelete = Boolean.FALSE;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(
             name = "student_course",
@@ -57,4 +59,5 @@ public class Student {
 
     @OneToMany(mappedBy = "student")
     private List<Note> notes;
+
 }

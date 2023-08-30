@@ -2,13 +2,17 @@ package com.institute.managementsystem.service.implement;
 
 import com.institute.managementsystem.dto.CourseDto;
 import com.institute.managementsystem.entity.Course;
+import com.institute.managementsystem.entity.Student;
 import com.institute.managementsystem.mapper.CourseMapper;
 import com.institute.managementsystem.repository.CourseRepository;
+import com.institute.managementsystem.repository.StudentRepository;
 import com.institute.managementsystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -17,6 +21,8 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Override
     public CourseDto save(CourseDto courseDto) {
@@ -50,5 +56,29 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseDto> getAll() {
         List<Course> courseList= courseRepository.findAll();
         return courseMapper.courseEntityList2DtoList(courseList);
+    }
+
+    @Override
+    public List<Student> getStudentCourse(Long courseId) {
+        Optional<Course> courseOptional= courseRepository.findById(courseId);
+        if (courseOptional.isPresent()){
+            Course course= courseOptional.get();
+            return course.getStudents();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public void addStudentACourse(Long courseId, Long studentId) {
+        Course course = courseRepository.findById(courseId).orElse(null);
+        Student student = studentRepository.findById(studentId).orElse(null);
+
+        if (course != null && student != null) {
+            course.getStudents().add(student);
+            student.getEnrolledCourse().add(course);
+            courseRepository.save(course);
+        } else {
+            throw new IllegalArgumentException("Curso o estudiante no encontrados.");
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.institute.managementsystem.service.implement;
 
 import com.institute.managementsystem.dto.StudentDto;
+import com.institute.managementsystem.entity.Course;
 import com.institute.managementsystem.entity.Student;
 import com.institute.managementsystem.mapper.StudentMapper;
 import com.institute.managementsystem.repository.CourseRepository;
@@ -9,7 +10,9 @@ import com.institute.managementsystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -57,5 +60,15 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentDto> getAll() {
         List<Student> studentList= studentRepository.findAll();
         return studentMapper.studentEntityList2DtoList(studentList);
+    }
+
+    @Override
+    public List<Course> getCourseStudent(Long studentId) {
+        Optional<Student> studentOptional= studentRepository.findById(studentId);
+        if (studentOptional.isPresent()){
+            Student student= studentOptional.get();
+            return student.getEnrolledCourse();
+        }
+        return Collections.emptyList();
     }
 }
